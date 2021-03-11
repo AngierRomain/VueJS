@@ -1,0 +1,10 @@
+{
+    "name": "demo-lp-dawin",
+    "description": "Demo project for LP DAWIN",
+    "version": "1.0.0",
+    "author": "Simon <simon.botte@icloud.com>",
+    "dependencies": {
+        "vue": "2.6.12",
+        "webpack": "5.10.0"
+    }
+}
