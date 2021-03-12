@@ -44,11 +44,7 @@ export default {
     },
     methods: {
         doDisplaySynopsis: function(aMovie) {
-            if (aMovie.displaySynopsis == true) {
-                aMovie.displaySynopsis = false;
-            } else {
-                aMovie.displaySynopsis = true;
-            }
+            aMovie.displaySynopsis = aMovie.displaySynopsis !== true;
         },
         displayAdd: function() {
             this.$router.push({ name: "add" });
@@ -58,15 +54,11 @@ export default {
             let moviesSearched = this.shared_data.movies;
             let good;
             moviesSearched.forEach((movie) => {
-                good = false;
-                if (
-                    movie.title == value ||
-                    movie.releaseDate == value ||
-                    movie.director == value
-                ) {
-                    good = true;
-                }
-                if (good == false) {
+
+                good = movie.title === value ||
+                    movie.releaseDate === value ||
+                    movie.director === value;
+                if (good === false) {
                     movie.displayMovie = false;
                 }
             });
