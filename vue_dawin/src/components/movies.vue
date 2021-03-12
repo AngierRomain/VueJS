@@ -14,7 +14,9 @@
               class="movie__data"
           >
             <span v-on:click="displayMovie(i)">{{ movie.title }} ({{ movie.releaseDate }})</span>
-            <img :src="movie.poster" :alt="movie.title" />
+            <img :src="movie.poster" :alt="movie.title"/>
+            <star-rating v-model="rating"></star-rating>
+            <div><a href="#" @click.prevent="rating = 0">Reset Rating</a></div>
             <p v-if="movie.displaySynopsis">
               Réalisateur : {{ movie.director.firstname }} {{ movie.director.lastname }}
               {{ movie.director.nationality }} {{ movie.director.birthdate }}
@@ -45,11 +47,17 @@
 </template>
 
 <script>
+import {StarRating} from "vue-rate-it";
+
 export default {
+  components: {
+    StarRating
+  },
   name: "movies",
   props: ["movies"],
   data: function () {
     return {
+      rating: 3,
       shared_data: window.shared_data,
     };
   },

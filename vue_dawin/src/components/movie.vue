@@ -3,6 +3,9 @@
     <h3>Aperçu du film</h3>
     <p> {{movie.title}} </p>
     <img :src="movie.poster" :alt="movie.title" />
+    <star-rating v-model="rating"></star-rating>
+    <div><a href="#" @click.prevent="rating = 0">Reset Rating</a></div>
+
     <p> {{movie.releaseDate}} </p>
     <p> {{movie.language}} </p>
     <p> {{movie.director.lastname}} </p>
@@ -15,14 +18,16 @@
 </template>
 
 <script>
-export default {
-  name: "movie",
-  //props: ["idMovie"],
-  methods: {
+import {StarRating} from 'vue-rate-it';
 
+export default {
+  components: {
+    StarRating
   },
+  name: "movie",
   data: function () {
     return {
+      rating: 3,
       shared_data: window.shared_data,
       idMovie: parseInt(this.$route.params.idMovie),
       movie:
@@ -30,6 +35,7 @@ export default {
     };
   },
 };
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
