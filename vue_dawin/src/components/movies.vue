@@ -1,5 +1,18 @@
 <template>
   <div>
+    <nav class="navbar navbar-dark bg-dark">
+      <div class="container-fluid">
+        <router-link to="/" class="navbar-brand">{{ title }}</router-link>
+        <div class="d-flex">
+          <button type="button" class="btn btn-success" v-on:click="displayAdd">Ajouter un film</button>
+        </div>
+        <div class="d-flex">
+          <input v-model="rechercheValue"/>
+          <button  type="button" class="btn btn-light" v-on:click="recherche">Rechercher</button>
+          <button type="button" class="btn btn-light" v-on:click="reinitRecherche">Reinitialiser</button>
+        </div>
+      </div>
+    </nav>
     <p>{{ nbMovie }} films</p>
     <ul>
       <li
@@ -24,8 +37,8 @@
               <br/>
               Genre: {{ movie.gender }}
               <br/>
-              {{ movie.synopsis }}.
-            </p>
+            <div class="synopsis">{{ movie.synopsis }}.</div>
+            </div>
           </div>
           <div class="movie__action">
             <button type="button" class="btn btn-danger"  v-on:click="doDeleteMovie(movie)">Supprimer</button>
@@ -50,9 +63,20 @@ export default {
   props: ["movies"],
   data: function () {
     return {
-      rating: 3,
       shared_data: window.shared_data,
+      title: 'MovieJS',
+      dataTitle: "",
+      dataReleaseDate: "",
+      dataDirector: "",
+      dataSynopsis: "",
+      displayResume: false,
+      action: "",
+      cacheMovie: null,
+      rechercheValue: "",
     };
+  },
+  created() {
+    window.shared_data.title = this.title
   },
   methods: {
     doDisplaySynopsisChild: function (aMovie) {
@@ -71,6 +95,32 @@ export default {
     },
     displayMovie: function (idMovie) {
       this.$router.push({name: "movie", params: {idMovie: idMovie}});
+    },
+    doDisplaySynopsis: function (aMovie) {
+      aMovie.displaySynopsis = aMovie.displaySynopsis !== true;
+    },
+    displayAdd: function () {
+      this.$router.push({name: "add"});
+    },
+    recherche: function () {
+      let value = this.rechercheValue;
+      let moviesSearched = this.shared_data.movies;
+      let good;
+      moviesSearched.forEach((movie) => {
+
+        good = movie.title === value ||
+            movie.releaseDate === value ||
+            movie.director.lastname === value || movie.director.firstname === value;
+        if (good === false) {
+          movie.displayMovie = false;
+        }
+      });
+    },
+    reinitRecherche: function () {
+      let moviesSearched = this.shared_data.movies;
+      moviesSearched.forEach((movie) => {
+        movie.displayMovie = true;
+      });
     },
   },
 
