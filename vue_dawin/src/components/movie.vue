@@ -6,13 +6,13 @@
     <star-rating v-model="rating"></star-rating>
     <div><a href="#" @click.prevent="rating = 0">Reset Rating</a></div>
 
-    <p> {{movie.releaseDate}} </p>
-    <p> {{movie.language}} </p>
-    <p> {{movie.director.lastname}} </p>
-    <p> {{movie.director.firstname}} </p>
-    <p> {{movie.director.nationality}} </p>
-    <p> {{movie.director.birthdate}} </p>
-    <p> {{movie.gender}} </p>
+    <div> {{movie.releaseDate}} </div>
+    <div> {{movie.language}} </div>
+    <div> {{movie.director.lastname}} </div>
+    <div> {{movie.director.firstname}} </div>
+    <div> {{movie.director.nationality}} </div>
+    <div> {{movie.director.birthdate}} </div>
+    <div> {{movie.gender}} </div>
     <p> {{movie.synopsis}} </p>
   </div>
 </template>

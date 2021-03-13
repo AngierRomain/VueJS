@@ -6,18 +6,19 @@
           class="movie"
           v-for="(movie, i) in shared_data.movies"
           v-bind:key="i"
-          v-bind:title="movie.title"
-      >
+          v-bind:title="movie.title">
         <div v-if="movie.displayMovie">
           <div
               v-on:click="doDisplaySynopsisChild(movie)"
-              class="movie__data"
-          >
-            <span v-on:click="displayMovie(i)">{{ movie.title }} ({{ movie.releaseDate }})</span>
-            <img :src="movie.poster" :alt="movie.title"/>
-            <star-rating v-model="rating"></star-rating>
-            <div><a href="#" @click.prevent="rating = 0">Reset Rating</a></div>
-            <p v-if="movie.displaySynopsis">
+              class="movie__data">
+            <div v-on:click="displayMovie(i)" class="movieTitle">{{ movie.title }} ({{ movie.releaseDate }})</div>
+            <img :src="movie.poster" :alt="movie.title" class="poster"/>
+
+            <div class="rating">
+              <star-rating v-model="movie.rating"></star-rating>
+            </div>
+
+            <div v-if="movie.displaySynopsis">
               Réalisateur : {{ movie.director.firstname }} {{ movie.director.lastname }}
               {{ movie.director.nationality }} {{ movie.director.birthdate }}
               <br/>
@@ -27,16 +28,8 @@
             </p>
           </div>
           <div class="movie__action">
-            <button
-                style="color: red"
-                v-on:click="doDeleteMovie(movie)"
-            >
-              Supprimer
-            </button>
-            <button
-                style="color: green"
-                v-on:click="goEditMovie(i)"
-            >
+            <button type="button" class="btn btn-danger"  v-on:click="doDeleteMovie(movie)">Supprimer</button>
+            <button type="button" class="btn btn-warning" v-on:click="goEditMovie(i)">
               Modifier
             </button>
           </div>
@@ -89,5 +82,48 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped></style>
+<style>
+.poster{
+  width: 250px;
+  height: 400px;
+  background-size: cover;
+}
+
+.movieTitle{
+  font-weight: bold;
+  font-size: 2.25rem;
+}
+
+.rating{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  pointer-events: none;
+  transform: scale(0.6);
+}
+
+.synopsis{
+  width:100%;
+  max-width: 100%;
+  max-height: 120px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+ul{
+  display: flex;
+  width: 100vw;
+  flex-wrap: wrap;
+}
+
+li{
+  margin-right: 2rem;
+  margin-left: 2rem;
+}
+.btn{
+  margin-left:5px;
+  margin-right: 5px;
+}
+</style>
