@@ -25,7 +25,7 @@
               v-on:click="doDisplaySynopsisChild(movie)"
               class="movie__data">
             <div v-on:click="displayMovie(i)" class="movieTitle">{{ movie.title }} ({{ movie.releaseDate }})</div>
-            <img :src="movie.poster" :alt="movie.title" class="poster"/>
+            <img :src="movie.poster" :alt="movie.title" class="poster" v-on:click="displayMovie(i)"/>
 
             <div class="rating">
               <star-rating v-model="movie.rating"></star-rating>
